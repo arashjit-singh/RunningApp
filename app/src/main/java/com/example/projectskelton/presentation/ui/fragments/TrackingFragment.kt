@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -151,8 +152,9 @@ class TrackingFragment : Fragment(), MenuProvider {
             for (polyline in pathPoints) {
                 distanceInMetres += TrackingUtility.calculatePolyLineLength(polyline).toInt()
             }
+            Timber.d("Time ${currentTimeInMillis}")
             val avgSpeed =
-                Math.round(((distanceInMetres / 1000f) / (currentTimeInMillis / 1000 / 60 / 60) * 10) / 10f)
+                Math.round(((distanceInMetres / 1000f) / (currentTimeInMillis / 1000f / 60 / 60) * 10) / 10f)
             val dateTimeStamp = Calendar.getInstance().timeInMillis
             val caloriesBurned = ((distanceInMetres / 1000f) * weight).toInt()
 
